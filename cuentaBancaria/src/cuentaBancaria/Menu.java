@@ -22,7 +22,7 @@ public Menu() {
 			System.out.println("*** 	6. Ver dígitos de control de la cuenta.   ***");
 			System.out.println("*** 	7. Realizar ingreso.                      ***");
 			System.out.println("*** 	8. Retirar efectivo.                      ***");
-			System.out.println("*** 	9. Consultar saldo de la cuenta           ***");
+			System.out.println("*** 	9. Consultar saldo de la cuenta.          ***");
 			System.out.println("*** 	10. Salir de la aplicación.               ***");
 			System.out.println("*****************************************************");
 			opc = leer.nextInt();
