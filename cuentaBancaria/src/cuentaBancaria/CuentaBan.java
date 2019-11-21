@@ -1,17 +1,22 @@
 package cuentaBancaria;
 
+import java.util.Scanner;
+
 public class CuentaBan {
 	private String nombre;
 	private String numCuenta;
+	private double saldo;
 
 	public CuentaBan() {
 		nombre = "";
 		numCuenta = "";	
+		saldo = 0;
 	}
 	
 	public CuentaBan(String nombre, String numCuenta) {
 		this.nombre = nombre;
 		this.numCuenta = numCuenta;
+		this.saldo=0;
 	}
 
 	public String getNombre() {
@@ -43,7 +48,7 @@ public class CuentaBan {
 		return this.numCuenta.substring(8, 18);
 	}
 	
-	public int calcularDigitoControl() {
+	public boolean calcularDigitoControl() {
 		int num1 = 0, num2 = 0, num3 =0;
 		int digControl=0, digControl1=0, digControl2=0;
  
@@ -86,14 +91,54 @@ public class CuentaBan {
 		}
 			
 		String aux = Integer.toString(digControl1) + Integer.toString(digControl2);
-		System.out.println(aux);
 		
 		if (this.numCuenta.substring(8, 10).equals(aux)) {
 			System.out.println("NUMERO DE CUENTA VALIDO");
+			System.out.println(this.numCuenta.substring(8,10));
+			return true;
 		} else {
-			System.out.println("vuelve a introducir el numero");
+			System.out.println("Nº de cuenta incorrecto, vuelve a introducirlo");
+			return false;
 		}
-			
-		return Integer.parseInt(aux);
+		
+	}
+	
+	public double ingresarDinero() {
+		
+		Scanner leer = new Scanner(System.in);
+		double ingreso = 0;
+		
+		System.out.println("Cuanto dinero quieres ingresar");
+		ingreso = leer.nextDouble();
+		if (ingreso<=0) {
+			do {
+				System.out.println("Dime una cantidad a ingresar correcta");
+				ingreso = leer.nextDouble();
+			} while (ingreso<=0);
+		}
+		this.saldo += ingreso;
+		return ingreso;
+	}
+	
+	public double sacarDinero() {
+		Scanner leer = new Scanner(System.in);
+		double retirar = 0;
+		
+		System.out.println("Cuanto dinero quires retirar de tu cuenta");
+		retirar = leer.nextDouble();
+		
+		if (retirar>=this.saldo) {
+			do {
+				System.out.println("NO DISPONES DE TANTO DINERO EN TU CUENTA, consulta tu saldo y retire una cantidad correcta");
+				retirar= leer.nextDouble();
+			} while (this.saldo>=0);
+		}
+		this.saldo-= retirar;
+		return retirar;
+	}
+	
+	public double consultarSaldo() {
+		
+		return this.saldo;
 	}
 }
